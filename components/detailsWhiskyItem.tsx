@@ -114,8 +114,10 @@ const DetailsWhiskyItem: FC<Props> = ({item,edit}): JSX.Element => {
           > {item.commentaire}</h1>
     </div>
 
-        <div className='flex items-center'>
-          <img src={item.image}/>
+        <div className='flex flex-col items-center'>
+          <Link target='blank' href={`https://www.google.fr/search?tbm=shop&hl=fr&psb=1&ved=2ahUKEwjulISXtr39AhVPKNMKHYyWAPMQu-kFegQIABAP&q=${item.nom}&oq=talisker+10ans&gs_lcp=Cgtwcm9kdWN0cy1jYxADUABYAGAAaABwAHgAgAEAiAEAkgEAmAEA&sclient=products-cc`}>
+            <img src={item.image}/>
+          </Link>
         </div>
       
         

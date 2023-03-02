@@ -266,8 +266,9 @@ const EditWhiskyItem: FC<Props> = ({mode,item,edit}): JSX.Element => {
         className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
       />
     </div>
-        <img src={image}/>
-
+          <Link target='blank' href={`https://www.google.fr/search?tbm=shop&hl=fr&psb=1&ved=2ahUKEwjulISXtr39AhVPKNMKHYyWAPMQu-kFegQIABAP&q=${item.nom}&oq=talisker+10ans&gs_lcp=Cgtwcm9kdWN0cy1jYxADUABYAGAAaABwAHgAgAEAiAEAkgEAmAEA&sclient=products-cc`}>
+            <img src={item.image}/>
+          </Link>
 
 
 
