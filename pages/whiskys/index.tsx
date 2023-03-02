@@ -22,7 +22,8 @@ interface Props {
   }[]
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
+
   let whiskys:any = []
   try{
     const querySnapshot = await getDocs(collection(db, "Whiskys"));
@@ -35,7 +36,6 @@ export const getStaticProps = async () => {
 }catch(err){
     console.log(err)
 }
-
   return {
       props: {whiskys:whiskys}
         
