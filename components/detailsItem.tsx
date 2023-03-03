@@ -1,21 +1,20 @@
-import { FC,useEffect} from 'react';
+import { FC} from 'react';
 import { DocumentData } from 'firebase/firestore';
 import Link from 'next/link';
+import {useRouter } from 'next/router';
 
 interface Props {
     item:DocumentData,
-    edit:Function
+    genre:string
 }
 
-const DetailsWhiskyItem: FC<Props> = ({item,edit}): JSX.Element => {
+const DetailsItem: FC<Props> = ({item,genre}): JSX.Element => {
 
-
-
-
-  
-
+  const router = useRouter()
 
   return (
+
+
 <div className="flex items-center justify-center p-12">
 
 <div className="mx-auto w-full max-w-[550px] bg-white">
@@ -62,15 +61,16 @@ const DetailsWhiskyItem: FC<Props> = ({item,edit}): JSX.Element => {
     <div className="-mx-3 flex flex-wrap">
       <div className="w-full px-3 sm:w-1/2">
       <div className="mb-5">
+        
         <label
             htmlFor="tourbe"
             className="mb-3 block text-base font-medium text-[#07074D]"
           >
-            Tourbe
+            {genre == "whisky" ? 'Tourbe' : 'Sucre'}
           </label>
           <h1
             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-          > {item.tourbe}</h1>
+          > {genre == "Whiskys" ? item.tourbe : item.sucre}</h1>
         </div>
       </div>
       <div className="w-full px-3 sm:w-1/2">
@@ -123,14 +123,15 @@ const DetailsWhiskyItem: FC<Props> = ({item,edit}): JSX.Element => {
         
 
         <div className=' flex items-center justify-around flex-wrap '>          
-            <Link href="/whiskys">
+            
               <button
-                
+                type='button'
+                onClick={()=>router.back()}
                 className=" mt-3 hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none"
               >
                 Retour
               </button>
-            </Link>
+            
           </div>
             </form>
           </div>
@@ -138,4 +139,4 @@ const DetailsWhiskyItem: FC<Props> = ({item,edit}): JSX.Element => {
   )
 };
 
-export default DetailsWhiskyItem;
+export default DetailsItem;

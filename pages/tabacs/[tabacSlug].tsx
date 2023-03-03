@@ -4,7 +4,6 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 
 import { DocumentData } from 'firebase/firestore';
 import Layout from '../../components/Layout';
-import { useState } from 'react';
 import DetailsItem from '../../components/detailsItem';
 import EditItem from '../../components/editItem';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -13,24 +12,24 @@ import { initFirebase } from '../../firebaseConfig';
 import { getItems } from '../api/api-firebase';
 import { getItem } from '../api/api-firebase';
 
-
 interface Props {
-  whisky:DocumentData
+  tabac:DocumentData
 }
 
-const SinglePage: NextPage<Props> = ({whisky}) => {
+const SinglePage: NextPage<Props> = ({tabac}) => {
 
 
   //GESTION DU LOGIN 
-  const app = initFirebase()
+  initFirebase()
   const auth = getAuth()
   const [user] = useAuthState(auth)
+
 
   return (
 
     <Layout>
-      {user ? <EditItem mode={"edit"} item={whisky} genre={"Whiskys"}/> :
-        <DetailsItem item={whisky} genre={"Whiskys"}/>
+      {user ? <EditItem mode={"edit"} item={tabac} genre={"Tabacs"}/> :
+        <DetailsItem item={tabac} genre={"Tabacs"}/>
       }
     </Layout>
    
@@ -41,13 +40,13 @@ const SinglePage: NextPage<Props> = ({whisky}) => {
 export const getStaticProps: GetStaticProps = async (context) =>{
 
   const {params} = context
-  const {whiskySlug} = params as any
+  const {tabacSlug} = params as any
 
-  const whisky = await getItem("Whiskys",whiskySlug)
+  const tabac = await getItem("Tabacs",tabacSlug)
 
   return {
     props: {
-      whisky:{id:whiskySlug,...whisky?.data()}
+      tabac:{id:tabacSlug,...tabac?.data()}
     } 
   }
 }
@@ -55,10 +54,10 @@ export const getStaticProps: GetStaticProps = async (context) =>{
 
 export const getStaticPaths:GetStaticPaths = async  ()=>{
  
-  const whiskys = await getItems("Whiskys")
+  const tabacs = await getItems("Tabacs")
 
-  const paths = whiskys.map((whisky:DocumentData) => {
-    return {params : {whiskySlug: whisky.id}}
+  const paths = tabacs.map((tabac:DocumentData) => {
+    return {params : {tabacSlug: tabac.id}}
   })
 
 

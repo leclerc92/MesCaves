@@ -13,10 +13,11 @@ import Link from 'next/link';
 
 interface Props {
     search:Function,
-    tri:Function
+    tri:Function,
+    genre:string
 }
 
-const Dialmenu: FC<Props> = ({search,tri}): JSX.Element => {
+const Dialmenu: FC<Props> = ({search,tri,genre}): JSX.Element => {
 
 
     //GESTION DE L'AFICHAGE DES OPTIONS 
@@ -51,7 +52,7 @@ const Dialmenu: FC<Props> = ({search,tri}): JSX.Element => {
     }
 
     //GECTION DU LOGGIN 
-    const app = initFirebase()
+    initFirebase()
     const auth = getAuth()
     const [user] = useAuthState(auth)
 
@@ -71,10 +72,13 @@ const Dialmenu: FC<Props> = ({search,tri}): JSX.Element => {
             </li>
             {user &&
             <li>
-                <Link href="whiskys/new">
+                <Link href={{pathname:'/newItem/[genre]', query:{genre:genre}}}>
                 <div className="flex items-center px-5 py-2 border-b border-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-white dark:border-gray-600">
                     <IoMdAddCircleOutline className="w-4 h-4 mr-2"/>
-                    <span className="text-sm font-medium">Ajouter un item</span>
+                    {genre == "Whiskys" ? <span className="text-sm font-medium">Ajouter un whisky</span>:
+                                            <span className="text-sm font-medium">Ajouter un tabac</span>
+                    }
+                    
                 </div>
                 </Link>
             </li>
@@ -92,9 +96,11 @@ const Dialmenu: FC<Props> = ({search,tri}): JSX.Element => {
                 </div>
             </li>
             <li>
-                <div onClick={()=>toggleTri("tourbe")} className="flex items-center px-5 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-white">
+                <div onClick={genre == "Whiskys" ? ()=>toggleTri("tourbe") : ()=>toggleTri("sucre")} className="flex items-center px-5 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-white">
                     <BsFillTreeFill className="w-4 h-4 mr-2"/>
-                    <span className="text-sm font-medium">Trier par tourbe </span>
+                    {genre == "Whiskys" ? <span className="text-sm font-medium">Trier par tourbe </span>:
+                                            <span className="text-sm font-medium">Trier par sucre </span>
+                    }
                 </div>
             </li>
             <li>

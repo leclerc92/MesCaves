@@ -1,85 +1,83 @@
+
 import { NextPage } from 'next';
 import Vignette from '../../components/vignette';
 import Layout from '../../components/Layout';
 import { useState,useEffect, } from 'react';
 import { getItems } from '../api/api-firebase';
-
 import Dialmenu from '../../components/dialmenu';
 
 
 interface Props {
-  whiskys:{
+  tabacs:{
     id:string,
     data:{
       id:string,
       nom:string,
       image:string,
       note:number,
-      tourbe:number,
+      sucre:number,
       pays:string,
       like:boolean,
       stock:boolean
-    },
+    }
   }[]
 }
 
 export const getServerSideProps = async () => {
 
-  const whiskys = await getItems("Whiskys")
+  const tabacs = await getItems("Tabacs")
+
   return {
-      props: {whiskys:whiskys}
+      props: {tabacs:tabacs}
         
 }
 }
 
-const Whiskys: NextPage<Props> = ({whiskys}) => {
+const Tabacs: NextPage<Props> = ({tabacs}) => {
 
+  const [tabacsTri,setTabacsTri] = useState(tabacs)
   const [search,setSearch] = useState("")
   const [tri,setTri] = useState("")
-  const [whiksysTri,setWhiskysTri] = useState(whiskys)
 
-
-  useEffect(() => {
-    setWhiskysTri(whiskys.filter(w=>w.data.nom.toLowerCase().startsWith(search.toLowerCase())))
+ useEffect(() => {
+    setTabacsTri(tabacs.filter(w=>w.data.nom.toLowerCase().startsWith(search.toLowerCase())))
   }, [search]);
 
-  useEffect(() => {
+
+useEffect(() => {
     console.log(tri)
-     let wt = whiskys;
-     if(tri == "tourbe" ){
-      wt = whiskys.sort((a,b)=>b.data.tourbe-a.data.tourbe) 
+     let wt = tabacs;
+     if(tri == "sucre" ){
+      wt = tabacs.sort((a,b)=>b.data.sucre-a.data.sucre) 
       setTri(" ")
      }else if (tri == "note"){
-      wt = whiskys.sort((a,b)=>b.data.note-a.data.note)
+      wt = tabacs.sort((a,b)=>b.data.note-a.data.note)
       setTri(" ")
       }else if (tri == "favori"){
-      wt = whiskys.filter(w=>w.data.like)
+      wt = tabacs.filter(w=>w.data.like)
      }else if (tri == "stock"){
-      wt = whiskys.filter(w=>w.data.stock)
+      wt = tabacs.filter(w=>w.data.stock)
      }else if (tri == "all"){
-      wt = whiskys
+      wt = tabacs
      }
-     setWhiskysTri(wt)
+     setTabacsTri(wt)
 
   }, [tri]);
+
 
   return (
     <Layout>
       <div className='flex w-screen flex-wrap'>
-
           {
-          whiksysTri.map(whisky=>(
-            <Vignette key={whisky.id} item={whisky} genre={"Whiskys"}/>
+          tabacsTri.map(tabac=>(
+            <Vignette key={tabac.id} item={tabac} genre={"tabac"}/>
           ))}
 
       </div>
 
-      <Dialmenu search={setSearch} tri={setTri} genre={"Whiskys"}/>
-
-
+      <Dialmenu search={setSearch} tri={setTri} genre={"Tabacs"}/>
     </Layout>
-
   )
 };
 
-export default Whiskys;
+export default Tabacs;
