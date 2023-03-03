@@ -115,7 +115,7 @@ const DetailsItem: FC<Props> = ({item,genre}): JSX.Element => {
     </div>
 
         <div className='flex flex-col items-center'>
-          <Link target='blank' href={`https://www.google.fr/search?tbm=shop&hl=fr&psb=1&ved=2ahUKEwjulISXtr39AhVPKNMKHYyWAPMQu-kFegQIABAP&q=${item.nom}&oq=talisker+10ans&gs_lcp=Cgtwcm9kdWN0cy1jYxADUABYAGAAaABwAHgAgAEAiAEAkgEAmAEA&sclient=products-cc`}>
+          <Link target='blank' href={`https://www.google.fr/search?tbm=shop&hl=fr&psb=1&ved=2ahUKEwjulISXtr39AhVPKNMKHYyWAPMQu-kFegQIABAP&q=${item.data.nom}&oq=talisker+10ans&gs_lcp=Cgtwcm9kdWN0cy1jYxADUABYAGAAaABwAHgAgAEAiAEAkgEAmAEA&sclient=products-cc`}>
             <img src={item.data.image}/>
           </Link>
         </div>

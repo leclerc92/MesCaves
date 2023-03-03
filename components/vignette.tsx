@@ -18,7 +18,6 @@ interface Props {
         }
     },
     genre:string
-
 }
 
 const Vignette: FC<Props> = ({item,genre}): JSX.Element => {
