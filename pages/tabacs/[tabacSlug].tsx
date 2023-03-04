@@ -11,7 +11,8 @@ import { getAuth} from "firebase/auth";
 import { initFirebase } from '../../firebaseConfig';
 import { getItems } from '../api/api-firebase';
 import { getItem } from '../api/api-firebase';
-
+import AnimationLayout from '../../components/animationLayout';
+import Head from 'next/head';
 interface Props {
   tabac:DocumentData
 }
@@ -26,13 +27,16 @@ const SinglePage: NextPage<Props> = ({tabac}) => {
 
 
   return (
-
+    <AnimationLayout>
+    <Head>
+        <title>{tabac.data.nom}</title>
+    </Head>
     <Layout>
       {user ? <EditItem mode={"edit"} item={tabac} genre={"Tabacs"}/> :
         <DetailsItem item={tabac} genre={"Tabacs"}/>
       }
     </Layout>
-   
+    </AnimationLayout>
   )
 };
 

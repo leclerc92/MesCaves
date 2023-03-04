@@ -5,6 +5,8 @@ import Layout from '../../components/Layout';
 import { useState,useEffect, } from 'react';
 import { getItems } from '../api/api-firebase';
 import Dialmenu from '../../components/dialmenu';
+import AnimationLayout from '../../components/animationLayout';
+import Head from 'next/head'
 
 
 interface Props {
@@ -66,7 +68,11 @@ useEffect(() => {
 
 
   return (
+    <AnimationLayout>
     <Layout>
+      <Head>
+        <title>Mes tabacs</title>
+      </Head>
       <div className='flex w-screen flex-wrap'>
           {
           tabacsTri.map(tabac=>(
@@ -77,6 +83,7 @@ useEffect(() => {
 
       <Dialmenu search={setSearch} tri={setTri} genre={"Tabacs"}/>
     </Layout>
+    </AnimationLayout>
   )
 };
 

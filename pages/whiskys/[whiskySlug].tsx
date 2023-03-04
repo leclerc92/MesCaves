@@ -13,6 +13,8 @@ import { initFirebase } from '../../firebaseConfig';
 import { getItems } from '../api/api-firebase';
 import { getItem } from '../api/api-firebase';
 
+import AnimationLayout from '../../components/animationLayout';
+import Head from 'next/head'
 
 interface Props {
   whisky:DocumentData
@@ -27,13 +29,21 @@ const SinglePage: NextPage<Props> = ({whisky}) => {
   const [user] = useAuthState(auth)
 
   return (
+    <AnimationLayout>
 
     <Layout>
+
+    <Head>
+        <title>{whisky.data.nom}</title>
+    </Head>
+
+
       {user ? <EditItem mode={"edit"} item={whisky} genre={"Whiskys"}/> :
         <DetailsItem item={whisky} genre={"Whiskys"}/>
       }
     </Layout>
-   
+    </AnimationLayout>
+
   )
 };
 

@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { motion } from "framer-motion"
 
 interface Props {
     item:{
@@ -25,7 +26,15 @@ const Vignette: FC<Props> = ({item,genre}): JSX.Element => {
     const { pathname } = useRouter();
 
   return(
-    <div className="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col ">
+    <motion.div 
+    initial={{ opacity: 0, scale: 0.5 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.5 }}
+    className="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col ">
+    <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+    >
     <Link  href={pathname+"/"+item.id}>
         <img className={`hover:grow hover:shadow-lg h-80  ${item.data.stock ? 'opacity-100' : 'opacity-30'}`} src={item.data.image}/>
         <div className="pt-3 flex items-center justify-between">
@@ -41,7 +50,8 @@ const Vignette: FC<Props> = ({item,genre}): JSX.Element => {
         </div>
 
     </Link>
-</div>   
+    </motion.button>
+</motion.div>   
     
     
   )

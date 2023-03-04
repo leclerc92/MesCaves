@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import EditWhiskyItem from '../../components/editItem';
 import { useRouter } from 'next/router';
 import EditItem from '../../components/editItem';
+import Head from 'next/head'
 
 interface Props {}
 
@@ -37,7 +38,9 @@ const NewItem: NextPage<Props> = () => {
 
   return(
     <div>
-
+      <Head>
+        <title>Ajouter un item</title>
+      </Head>
       {genre == "Tabacs" ? <EditItem mode='new' item={dataTabacs} genre={"Tabacs"}/> :
                         <EditItem mode='new' item={dataWhisky} genre={"Whiskys"}/>
       
